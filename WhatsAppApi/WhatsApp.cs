@@ -69,6 +69,27 @@ namespace WhatsAppApi
             this.SendNode(node);
         }
 
+        public void SendMessageLocation(string to, double lat, double lon, string name)
+        {
+            FMessage msg = this.getFMessageLocation(to, lat, lon, name);
+            if (msg != null)
+            {
+                this.SendMessage(msg);
+            }
+        }
+
+        protected FMessage getFMessageLocation(string to, double lat, double lon, string name)
+        {
+            FMessage msg = new FMessage(to, true)
+            {
+                media_wa_type = FMessage.Type.Location,
+                latitude = lat, 
+                longitude = lon, 
+                location_details = name
+            };
+            return msg;
+        }
+
         public void SendMessageImage(string to, byte[] ImageData, ImageType imgtype)
         {
             FMessage msg = this.getFmessageImage(to, ImageData, imgtype);
